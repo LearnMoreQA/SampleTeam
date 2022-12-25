@@ -14,9 +14,9 @@ import resuseable.BrowerInvoke;
 import java.io.IOException;
 
 public class LoginSteps extends BrowerInvoke {
-
     private WebDriver driver;
     private String actualText;
+    private TextBoxHelper textBoxHelper;
 
     @Given("User Navigates to Required Url")
     public void navigatesToUrl() throws IOException {
@@ -25,7 +25,7 @@ public class LoginSteps extends BrowerInvoke {
 
     @When("User Enters valid Username and Password")
     public void userEntersValidCredantials() {
-        TextBoxHelper textBoxHelper = TextBoxHelper.getInstance(driver);
+        textBoxHelper = TextBoxHelper.getInstance(driver);
         textBoxHelper.enterText(By.name("username"),"Admin");
         textBoxHelper.enterText(By.name("password"),"admin123");
     }
@@ -43,6 +43,15 @@ public class LoginSteps extends BrowerInvoke {
     }
 
 
+    @Then("Validate the {string} Error Message")
+    public void validateTheErrorMessage(String actualMsg) {
+        Assert.assertEquals("Invalid credentials",actualMsg);
+    }
 
-
+    @When("User Enters Invalid Username and Password")
+    public void userEntersInvalidUsernameAndPassword() {
+        textBoxHelper = TextBoxHelper.getInstance(driver);
+        textBoxHelper.enterText(By.name("username"),"Admin123");
+        textBoxHelper.enterText(By.name("password"),"admin");
+    }
 }
