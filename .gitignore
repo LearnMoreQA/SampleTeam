@@ -1,3 +1,8 @@
 
 *.html
 *.png
+*.xml
+*.lst
+TestAutomationFramework/target/test-classes/com/runner/Runner.class
+TestAutomationFramework/TestAutomationFramework.iml
+TestAutomationFramework/target/test-classes/com/runner/Runner.class
