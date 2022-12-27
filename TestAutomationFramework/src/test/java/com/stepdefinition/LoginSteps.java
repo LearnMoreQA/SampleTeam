@@ -8,15 +8,17 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import resuseable.BrowerInvoke;
 
 import java.io.IOException;
 
 public class LoginSteps extends BrowerInvoke {
-    private WebDriver driver;
+    private RemoteWebDriver driver;
     private String actualText;
     private TextBoxHelper textBoxHelper;
+
+    private ActionsHelper actionsHelper;
 
     @Given("User Navigates to Required Url")
     public void navigatesToUrl() throws IOException {
@@ -32,13 +34,14 @@ public class LoginSteps extends BrowerInvoke {
 
     @And("User Clicks the Login Button")
     public void userClicksLoginBtn() {
-       ActionsHelper actionsHelper = ActionsHelper.getInstance(driver);
+        actionsHelper = ActionsHelper.getInstance(driver);
        actionsHelper.clickElement(By.xpath("//button[text()=' Login ']"));
-       actualText = actionsHelper.getTextValue(By.xpath("//span[contains(@class,'header-breadcrumb')]/child::h6"));
     }
 
     @Then("Validate System navigates to Home Page")
     public void navigatesToHomePage() {
+        actualText = actionsHelper.getTextValue(By.xpath
+                ("//span[contains(@class,'header-breadcrumb')]/child::h6"));
         Assert.assertEquals("Dashboard",actualText);
     }
 

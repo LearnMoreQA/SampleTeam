@@ -1,21 +1,21 @@
 package resuseable;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 
 public class BrowerInvoke {
-    protected static WebDriver driver;
+    protected static RemoteWebDriver driver;
 
-    protected static WebDriver openBrowser() throws IOException {
+    protected static RemoteWebDriver openBrowser() throws IOException {
         String path = System.getProperty("user.dir");
         File file = new File(path + "/src/main/resources/utility.properties");
         FileInputStream fis = new FileInputStream(file);
@@ -23,9 +23,11 @@ public class BrowerInvoke {
         prop.load(fis);
         String browser = prop.getProperty("Browser");
         System.out.println(browser);
-        if(browser.equals("Chrome")) {
-            System.setProperty("webdriver.chrome.driver", path + "/src/main/resources/driver/chromedriver.exe");
-            driver = new ChromeDriver();
+        if(browser.equalsIgnoreCase("Chrome")) {
+            DesiredCapabilities dc = new DesiredCapabilities();
+            dc.setBrowserName(browser);
+            URL url = new URL(prop.getProperty("Grid_URL"));
+            driver = new RemoteWebDriver(url,dc);
         } else if (browser.equals("Firefox")) {
             System.setProperty("webdriver.gecko.driver", path + "/src/main/resources/driver/geckodriver.exe");
             driver = new FirefoxDriver();
@@ -40,5 +42,6 @@ public class BrowerInvoke {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         return driver;
     }
+
 
 }
