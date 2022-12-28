@@ -5,4 +5,8 @@
 *.lst
 TestAutomationFramework/target/test-classes/com/runner/Runner.class
 TestAutomationFramework/TestAutomationFramework.iml
-TestAutomationFramework/target/test-classes/com/runner/Runner.class
+*.js
+*.css
+*.gif
+.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml
+.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml
