@@ -1,5 +1,6 @@
 package resuseable;
 
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -22,7 +23,6 @@ public class BrowerInvoke {
         Properties prop = new Properties();
         prop.load(fis);
         String browser = prop.getProperty("Browser");
-        System.out.println(browser);
         if(browser.equalsIgnoreCase("Chrome")) {
             DesiredCapabilities dc = new DesiredCapabilities();
             dc.setBrowserName(browser);
